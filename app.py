@@ -6,8 +6,13 @@ from models import Student
 
 load_dotenv()
 
+database_url = os.environ['DATABASE_URL']
+
+# fix incorrect database URIs currently returned by Heroku's pg setup
+database_url = database_url.replace('postgres://', 'postgresql://')
+
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI']=os.environ['DATABASE_URL']
+app.config['SQLALCHEMY_DATABASE_URI']=database_url
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_ECHO'] = True
 
