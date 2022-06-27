@@ -89,6 +89,18 @@ class Contact(db.Model):
         autoincrement=True
     )
 
+    def serialize(self):
+        """ Serialize contact """
+
+        return {
+            'student_id': self.student_id,
+            'name': self.name,
+            'email': self.email,
+            'phone': self.phone,
+            'other': self.other,
+            'relation': self.relation
+        }
+
 class Vaccination(db.Model):
     """ Vaccination model """
 
@@ -133,5 +145,18 @@ class Vaccination(db.Model):
         primary_key=True,
         autoincrement=True
     )
+
+    def serialize(self):
+        """ Serialize vaccination """
+
+        return {
+            'student_id': self.student_id,
+            'polio': self.polio,
+            'mmr': self.mmr,
+            'covid': self.covid,
+            'flu': self.flu,
+            'tb': self.tb,
+            'tetanus': self.tetanus
+        }
 
 
