@@ -2,7 +2,7 @@ import os
 from flask import Flask, jsonify, redirect
 from dotenv import load_dotenv
 from database import connect_db
-from models import Student, Contact, Vaccination
+from models import Student, Contact, MedicalRecord
 
 load_dotenv()
 
@@ -43,11 +43,11 @@ def get_contacts():
     contacts = Contact.query.all()
     return jsonify([contact.serialize() for contact in contacts])
 
-@app.get("/vaccinations")
-def get_vaccinations():
-    """Get all vaccinations."""
+@app.get("/medicalrecords")
+def get_medicalrecords():
+    """Get all medical records."""
 
-    vaccinations = Vaccination.query.all()
-    return jsonify([vaccination.serialize() for vaccination in vaccinations])
+    medical_records = MedicalRecord.query.all()
+    return jsonify([medical_record.serialize() for medical_record in medical_records])
 
 connect_db(app)

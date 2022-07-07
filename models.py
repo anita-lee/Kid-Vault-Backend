@@ -101,15 +101,26 @@ class Contact(db.Model):
             'relation': self.relation
         }
 
-class Vaccination(db.Model):
-    """ Vaccination model """
+class MedicalRecord(db.Model):
+    """ Medical record model """
 
-    __tablename__ = 'vaccinations'
+    __tablename__ = 'medical_records'
 
     student_id = db.Column(
         db.Integer,
         db.ForeignKey('students.id'),
     )
+
+    student_weight = db.Column(
+        db.Float,
+        nullable=True
+    )
+
+    student_height = db.Column(
+        db.Float,
+        nullable=True
+    )
+
     polio = db.Column(
         db.Date,
         nullable=True
@@ -120,7 +131,12 @@ class Vaccination(db.Model):
         nullable=True
     )
 
-    covid = db.Column(
+    covid1 = db.Column(
+        db.Date,
+        nullable=True
+    )
+
+    covid2 = db.Column(
         db.Date,
         nullable=True
     )
@@ -147,16 +163,102 @@ class Vaccination(db.Model):
     )
 
     def serialize(self):
-        """ Serialize vaccination """
+        """ Serialize medical record """
 
         return {
             'student_id': self.student_id,
+            'student_weight': self.student_weight,
+            'student_height': self.student_height,
             'polio': self.polio,
             'mmr': self.mmr,
-            'covid': self.covid,
+            'covid1': self.covid1,
+            'covid2': self.covid2,
             'flu': self.flu,
             'tb': self.tb,
             'tetanus': self.tetanus
         }
 
+class User(db.Model):
+    """ User model """
 
+    __tablename__ = 'users'
+
+    username = db.Column(
+        db.String(50),
+        primary_key=True
+    )
+
+    password = db.Column(
+        db.String(50),
+        nullable=False
+    )
+
+    first_name = db.Column(
+        db.String(50),
+        nullable=False
+    )
+
+    last_name = db.Column(
+        db.String(50),
+        nullable=False
+    )
+
+    email = db.Column(
+        db.String(50),
+        nullable=False
+    )
+
+    phone = db.Column(
+        db.String(50),
+        nullable=False
+    )
+
+    is_guardian = db.Column(
+        db.Boolean,
+        nullable=False
+    )
+
+    def serialize(self):
+        """ Serialize user """
+
+        return {
+            'username': self.username,
+            'password': self.password,
+            'first_name': self.first_name,
+            'last_name': self.last_name,
+            'email': self.email,
+            'phone': self.phone,
+            'is_guardian': self.is_guardian
+        }
+
+
+class GuardianChild(db.Model):
+    """ GuardianChild model """
+
+    __tablename__ = 'guardian_children'
+
+    guardian_username = db.Column(
+        db.String(50),
+        db.ForeignKey('users.username'),
+        primary_key=True
+    )
+    child_id = db.Column(
+        db.Integer,
+        db.ForeignKey('students.id'),
+        primary_key=True
+    )
+    child = db.relationship(
+        'Student',
+        backref=db.backref('guardian_children', lazy=True)
+    )
+    guardian = db.relationship(
+        'User',
+        backref=db.backref('guardian_children', lazy=True)
+    )
+    def serialize(self):
+        """ Serialize guardian child """
+
+        return {
+            'guardian_username': self.guardian_username,
+            'child_id': self.child_id
+        }

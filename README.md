@@ -1,18 +1,17 @@
-<<<<<<< HEAD
-## MOM_API TEST 2
-=======
 # Mom_API - Reducing paperwork for busy moms.
 
 ## Description
 
-Mom_API leverages the power of [GraphQL](https://graphql.org/) with [StepZen](https://stepzen.com/) to generate custom queries 
-to complete school forms. This MVP focuses on the **Blue Card (emergency contact information)** which needs to be duplicated each time a child
-attends a camp, after-school program, or school. Since these organizations don't share data, we give the parent
-the power to enter their children's information once, which can then be queried via a Metamask-type front-end browser 
-extension to autopopulate school forms via [ML text recognition](https://developers.google.com/ml-kit/vision/text-recognition/). 
+Mom_API leverages the power of [GraphQL](https://graphql.org/) with [StepZen](https://stepzen.com/) to generate custom queries to complete school forms. This MVP focuses on the **Blue Card (emergency contact information)** which needs to be duplicated each time a child attends a camp, after-school program, or school. Organizations each have their own record-keeping system.  Our solution empowers the parent -
+A: Choose QR code with their child's information from their main school org to share with local organizations.
+B: Host their child's information on blockchain so they are in full control.  
 
-We hope in the future that schools can access these parent's database via an API authorization token, thereby 
-reducing duplicate paperwork for busy parents.  
+
+Since these organizations don't share data, we give the parent the power to enter their children's information once, which can then be queried via a Metamask-type front-end browser
+extension to autopopulate school forms via [ML text recognition](https://developers.google.com/ml-kit/vision/text-recognition/).
+
+We hope in the future that schools can access these parent's database via an API authorization token, thereby
+reducing duplicate paperwork for busy parents.
 
 ## DEMO
 
@@ -37,10 +36,10 @@ Create .env file with:
 DATABASE_URL=postgresql:///mom_api
 ```
 
-Create the database: 
+Create the database:
 ```
 $ psql
-# CREATE DATABASE mom_api; 
+# CREATE DATABASE mom_api;
 ```
 
 To run the app, first run the `seed.py` file directly to create the database tables:
@@ -63,8 +62,8 @@ Visit [http://localhost:5001/](http://localhost:5001/) in your browser to see th
 1. Testing
 2. Expanding the type of information stored in the mom_api database
 3. Integrate ML text recognition for easy auto-population
-4. Create QR code abilities so schools can easily download the information from the parent.  Similar to scanning in a child.  
-5. Create HIPAA compliant way for medical organizations to upload child's vaccination records/medical history.   
+4. Create QR code abilities so schools can easily download the information from the parent.  Similar to scanning in a child.
+5. Create HIPAA compliant way for medical organizations to upload child's vaccination records/medical history.
 
 ## Acknowledgments
 
