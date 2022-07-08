@@ -28,7 +28,7 @@ class Student(db.Model):
 
     classroom = db.Column(
         db.String(50),
-        nullable=False
+        nullable=True
     )
 
     @classmethod
@@ -240,7 +240,7 @@ class GuardianChild(db.Model):
 
     username = db.Column(
         db.String(50),
-        # db.ForeignKey('users.username')
+        db.ForeignKey('users.username')
     )
 
     child_id = db.Column(

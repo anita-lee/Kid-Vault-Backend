@@ -2,7 +2,7 @@ import os
 from flask import Flask, jsonify, redirect, request
 from dotenv import load_dotenv
 from database import connect_db, db
-from models import Student, Contact, MedicalRecord
+from models import Student, Contact, MedicalRecord, User, GuardianChild
 
 load_dotenv()
 
@@ -49,6 +49,20 @@ def get_medicalrecords():
 
     medical_records = MedicalRecord.query.all()
     return jsonify([medical_record.serialize() for medical_record in medical_records])
+
+@app.get("/users")
+def get_users():
+    """Get all users."""
+
+    users = User.query.all()
+    return jsonify([user.serialize() for user in users])
+
+@app.get("/guardianchildren")
+def get_guardianchildren():
+    """Get all guardian children."""
+
+    guardian_children = GuardianChild.query.all()
+    return jsonify([guardian_child.serialize() for guardian_child in guardian_children])
 
 @app.post("/students")
 def create_student():
