@@ -1,7 +1,7 @@
 import os
-from flask import Flask, jsonify, redirect
+from flask import Flask, jsonify, redirect, request
 from dotenv import load_dotenv
-from database import connect_db
+from database import connect_db, db
 from models import Student, Contact, MedicalRecord
 
 load_dotenv()
@@ -49,5 +49,19 @@ def get_medicalrecords():
 
     medical_records = MedicalRecord.query.all()
     return jsonify([medical_record.serialize() for medical_record in medical_records])
+
+@app.post("/students")
+def create_student():
+    """Create a new student."""
+
+    student = Student(
+        last_name=request.json['last_name'],
+        first_name=request.json['first_name'],
+        birth_date=request.json['birth_date'],
+        classroom=request.json['classroom']
+    )
+    db.session.add(student)
+    db.session.commit()
+    return jsonify(student.serialize())
 
 connect_db(app)
