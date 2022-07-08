@@ -6,6 +6,7 @@ Mom_API leverages the power of [GraphQL](https://graphql.org/) with [StepZen](ht
 A: Choose QR code with their child's information from their main school org to share with local organizations.
 B: Host their child's information on blockchain so they are in full control.
 
+
 Since these organizations don't share data, we give the parent the power to enter their children's information once, which can then be queried via a Metamask-type front-end browser
 extension to autopopulate school forms via [ML text recognition](https://developers.google.com/ml-kit/vision/text-recognition/).
 
