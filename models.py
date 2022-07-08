@@ -158,7 +158,7 @@ class MedicalRecord(db.Model):
     )
 
     def serialize(self):
-        """ Serialize medical record """
+        """Serialize medical record"""
 
         return {
             'student_id': self.student_id,

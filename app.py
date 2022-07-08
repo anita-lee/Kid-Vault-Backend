@@ -59,7 +59,7 @@ def get_users():
 
 @app.get("/guardianchildren")
 def get_guardianchildren():
-    """Get all guardian children."""
+    """Get all guardian children. """
 
     guardian_children = GuardianChild.query.all()
     return jsonify([guardian_child.serialize() for guardian_child in guardian_children])
