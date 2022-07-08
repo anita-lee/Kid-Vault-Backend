@@ -109,6 +109,7 @@ class MedicalRecord(db.Model):
     student_id = db.Column(
         db.Integer,
         db.ForeignKey('students.id'),
+        primary_key=True
     )
 
     student_weight = db.Column(
@@ -154,12 +155,6 @@ class MedicalRecord(db.Model):
     tetanus = db.Column(
         db.Date,
         nullable=True
-    )
-
-    id = db.Column(
-        db.Integer,
-        primary_key=True,
-        autoincrement=True
     )
 
     def serialize(self):
@@ -214,7 +209,7 @@ class User(db.Model):
     )
 
     is_guardian = db.Column(
-        db.Boolean,
+        db.String,
         nullable=False
     )
 
@@ -237,24 +232,32 @@ class GuardianChild(db.Model):
 
     __tablename__ = 'guardian_children'
 
-    guardian_username = db.Column(
-        db.String(50),
-        db.ForeignKey('users.username'),
-        primary_key=True
+    id = db.Column(
+        db.Integer,
+        primary_key=True,
+        autoincrement=True
     )
+
+    username = db.Column(
+        db.String(50),
+        # db.ForeignKey('users.username')
+    )
+
     child_id = db.Column(
         db.Integer,
-        db.ForeignKey('students.id'),
-        primary_key=True
+        db.ForeignKey('students.id')
     )
+
     child = db.relationship(
         'Student',
         backref=db.backref('guardian_children', lazy=True)
     )
-    guardian = db.relationship(
+
+    user = db.relationship(
         'User',
         backref=db.backref('guardian_children', lazy=True)
     )
+
     def serialize(self):
         """ Serialize guardian child """
 
