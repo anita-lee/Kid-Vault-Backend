@@ -238,7 +238,7 @@ class GuardianChild(db.Model):
         autoincrement=True
     )
 
-    username = db.Column(
+    guardian_username = db.Column(
         db.String(50),
         db.ForeignKey('users.username')
     )

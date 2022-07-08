@@ -78,4 +78,17 @@ def create_student():
     db.session.commit()
     return jsonify(student.serialize())
 
+@app.post("/guardianchildren")
+def create_guardianchild():
+    """Create a new guardian child relationship."""
+
+    guardian_child = GuardianChild(
+       guardian_username=request.json['guardian_username'],
+       child_id=request.json['child_id']
+    )
+
+    db.session.add(guardian_child)
+    db.session.commit()
+    return jsonify(guardian_child.serialize())
+
 connect_db(app)
