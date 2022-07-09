@@ -74,6 +74,7 @@ def create_student():
         birth_date=request.json['birth_date'],
         classroom=request.json['classroom']
     )
+    
     db.session.add(student)
     db.session.commit()
     return jsonify(student.serialize())
@@ -90,5 +91,22 @@ def create_guardianchild():
     db.session.add(guardian_child)
     db.session.commit()
     return jsonify(guardian_child.serialize())
+
+@app.post("/users")
+def create_user():
+    """Create a new user."""
+
+    user = User(
+        username=request.json['username'],
+        password=request.json['password'],
+        first_name=request.json['first_name'],
+        last_name=request.json['last_name'],
+        email=request.json['email'],
+        phone=request.json['phone'],
+        is_guardian=request.json['is_guardian']
+    )
+    db.session.add(user)
+    db.session.commit()
+    return jsonify(user.serialize())
 
 connect_db(app)
