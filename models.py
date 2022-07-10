@@ -202,39 +202,39 @@ class User(db.Model):
     __tablename__ = 'users'
 
     username = db.Column(
-        db.String(50),
+        db.String(20),
         primary_key=True
     )
 
     password = db.Column(
-        db.String,
+        db.String(60),
         nullable=False
     )
 
     first_name = db.Column(
-        db.String(50),
+        db.String(20),
         nullable=False
     )
 
     last_name = db.Column(
-        db.String(50),
+        db.String(20),
         nullable=False
     )
 
     email = db.Column(
-        db.String(50),
+        db.String(40),
         nullable=False,
         unique=True
     )
 
     phone = db.Column(
-        db.String(50),
+        db.String(15),
         nullable=False
     )
 
     is_guardian = db.Column(
         db.Boolean,
-        # nullable=False
+        nullable=False
     )
 
     def __repr__(self):
@@ -260,11 +260,12 @@ class User(db.Model):
         """
 
         hashed_pwd = bcrypt.generate_password_hash(password).decode('UTF-8')
+        print("hash pwd", hashed_pwd, len(hashed_pwd))
 
 
         user = User(
             username=username,
-            password=password,
+            password=hashed_pwd,
             first_name=first_name,
             last_name=last_name,
             email=email,
