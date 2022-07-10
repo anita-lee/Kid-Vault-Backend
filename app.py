@@ -72,6 +72,7 @@ def signup():
             first_name=request.json["first_name"],
             last_name=request.json["last_name"],
             email=request.json["email"],
+            phone=request.json["phone"],
         )
 
         db.session.commit()

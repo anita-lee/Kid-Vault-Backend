@@ -207,7 +207,7 @@ class User(db.Model):
     )
 
     password = db.Column(
-        db.Text,
+        db.String,
         nullable=False
     )
 
@@ -229,11 +229,11 @@ class User(db.Model):
 
     phone = db.Column(
         db.String(50),
-        # nullable=False
+        nullable=False
     )
 
     is_guardian = db.Column(
-        db.String,
+        db.Boolean,
         # nullable=False
     )
 
@@ -253,7 +253,7 @@ class User(db.Model):
         }
 
     @classmethod
-    def signup(cls, username, password, first_name, last_name, email):
+    def signup(cls, username, password, first_name, last_name, email, phone):
         """ Signup user.
 
         Hashes password and adds user to system.
@@ -264,10 +264,12 @@ class User(db.Model):
 
         user = User(
             username=username,
-            password=hashed_pwd,
+            password=password,
             first_name=first_name,
             last_name=last_name,
-            email=email
+            email=email,
+            phone=phone,
+            is_guardian=True
         )
 
         db.session.add(user)
