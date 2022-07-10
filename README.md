@@ -42,6 +42,7 @@ $ psql
 ```
 
 Fix the database: (Data was entered explicitly using .csv files, need to set max student_id value)
+
 ```
 # SELECT setval('students_id_seq', (SELECT MAX(id) from "students"));
 ```
