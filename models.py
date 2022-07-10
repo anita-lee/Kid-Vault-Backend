@@ -33,7 +33,7 @@ class Student(db.Model):
     )
 
     birth_date = db.Column(
-        db.Date,
+        db.String,
         nullable=False
     )
 

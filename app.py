@@ -1,4 +1,5 @@
 import os
+from dotenv import load_dotenv
 from flask import Flask, jsonify, request, redirect
 from flask_jwt_extended import create_access_token, get_jwt_identity, jwt_required, JWTManager
 from flask_debugtoolbar import DebugToolbarExtension
@@ -8,6 +9,8 @@ from datetime import timedelta
 from werkzeug.utils import secure_filename
 from flask_cors import CORS, cross_origin
 
+load_dotenv()
+
 
 app = Flask(__name__)
 CORS(app, resources={r"*": {"origins": "*"}})
@@ -15,7 +18,7 @@ CORS(app, resources={r"*": {"origins": "*"}})
 app.config['CORS_HEADERS'] = ['Content-Type','Authorization']
 app.config["JWT_TOKEN_LOCATION"] = ["headers"]
 app.config["JWT_COOKIE_SECURE"] = False
-app.config["JWT_SECRET_KEY"] = os.environ['SECRET_KEY']
+app.config["JWT_SECRET_KEY"] = os.environ["SECRET_KEY"]
 app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(hours=1)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = (
