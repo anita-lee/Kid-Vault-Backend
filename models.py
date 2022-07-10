@@ -234,6 +234,7 @@ class User(db.Model):
 
     is_guardian = db.Column(
         db.Boolean,
+        default=True
     )
 
     def __repr__(self):
