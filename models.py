@@ -269,7 +269,7 @@ class User(db.Model):
             last_name=last_name,
             email=email,
             phone=phone,
-            is_guardian=True
+            is_guardian=True,
         )
 
         db.session.add(user)
