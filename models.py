@@ -1,4 +1,9 @@
 from database import db
+from flask_bcrypt import Bcrypt
+from flask_sqlalchemy import SQLAlchemy
+
+bcrypt = Bcrypt()
+db = SQLAlchemy()
 
 class Student(db.Model):
     """ Student model """
@@ -225,6 +230,38 @@ class User(db.Model):
             'phone': self.phone,
             'is_guardian': self.is_guardian
         }
+
+    @classmethod
+    def signup(cls, username, password, first_name, last_name, email, phone, is_guardian):
+        """ Signup user """
+
+        hashed_pwd = bcrypt.generate_password_hash(password).decode('UTF-8')
+
+
+        user = User(
+            username=username,
+            password=hashed_pwd,
+            first_name=first_name,
+            last_name=last_name,
+            email=email,
+            phone=phone,
+            is_guardian=is_guardian
+        )
+
+        db.session.add(user)
+        db.session.commit()
+        return user
+
+    @classmethod
+    def authenticate(cls, username, password):
+        """ Authenticate user """
+
+        user = cls.query.filter_by(username=username).first()
+
+        if user and bcrypt.check_password_hash(user.password, password):
+            return user
+
+        return False
 
 
 class GuardianChild(db.Model):
