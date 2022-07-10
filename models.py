@@ -229,13 +229,16 @@ class User(db.Model):
 
     phone = db.Column(
         db.String(50),
-        nullable=False
+        # nullable=False
     )
 
     is_guardian = db.Column(
         db.String,
-        nullable=False
+        # nullable=False
     )
+
+    def __repr__(self):
+        return f"<User {self.username}: {self.email}>"
 
     def serialize(self):
         """ Serialize user """
@@ -268,12 +271,12 @@ class User(db.Model):
         )
 
         db.session.add(user)
-        db.session.commit()
+
         return user
 
     @classmethod
-    def authenticate(cls, username, password):
-        """ Authenticate user """
+    def login(cls, username, password):
+        """ Login user """
 
         user = cls.query.filter_by(username=username).first()
 
@@ -318,3 +321,11 @@ class GuardianChild(db.Model):
             'guardian_username': self.guardian_username,
             'child_id': self.child_id
         }
+
+def connect_db(app):
+    """Connect this database to provided Flask app.
+    You should call this in your Flask app.
+    """
+
+    db.app = app
+    db.init_app(app)
