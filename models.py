@@ -259,7 +259,6 @@ class User(db.Model):
         """
 
         hashed_pwd = bcrypt.generate_password_hash(password).decode('UTF-8')
-        print("hash pwd", hashed_pwd, len(hashed_pwd))
 
 
         user = User(
