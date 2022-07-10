@@ -1,9 +1,15 @@
 from database import db
 from flask_bcrypt import Bcrypt
-from flask_sqlalchemy import SQLAlchemy
+# from flask_sqlalchemy import SQLAlchemy
+# from flask_jwt_extended import jwt_required, JWTManager
 
 bcrypt = Bcrypt()
-db = SQLAlchemy()
+# jwt = JWTManager()
+# db = SQLAlchemy()
+
+DEFAULT_PROFILE_PIC = "https://images.unsplash.com/photo-1504376379689-8d54347b26c6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2036&q=80"
+
+############## STUDENT MODEL ###########################
 
 class Student(db.Model):
     """ Student model """
@@ -36,6 +42,11 @@ class Student(db.Model):
         nullable=True
     )
 
+    image_url = db.Column(
+        db.Text,
+        default=DEFAULT_PROFILE_PIC
+    )
+
     @classmethod
     def get_by_id(cls, id):
         """ Get student by id """
@@ -50,8 +61,11 @@ class Student(db.Model):
             'last_name': self.last_name,
             'first_name': self.first_name,
             'birth_date': self.birth_date,
-            'classroom': self.classroom
+            'classroom': self.classroom,
+            'image_url': self.image_url
         }
+
+############## EMERGENCY CONTACT MODEL ###########################
 
 class Contact(db.Model):
     """ Contact model """
@@ -106,6 +120,8 @@ class Contact(db.Model):
             'relation': self.relation
         }
 
+############## MEDICAL RECORD MODEL ###########################
+
 class MedicalRecord(db.Model):
     """ Medical record model """
 
@@ -113,7 +129,7 @@ class MedicalRecord(db.Model):
 
     student_id = db.Column(
         db.Integer,
-        db.ForeignKey('students.id'),
+        db.ForeignKey('students.id', ondelete='CASCADE'),
         primary_key=True
     )
 
@@ -128,37 +144,37 @@ class MedicalRecord(db.Model):
     )
 
     polio = db.Column(
-        db.Date,
+        db.String,
         nullable=True
     )
 
     mmr = db.Column(
-        db.Date,
+        db.String,
         nullable=True
     )
 
     covid1 = db.Column(
-        db.Date,
+        db.String,
         nullable=True
     )
 
     covid2 = db.Column(
-        db.Date,
+        db.String,
         nullable=True
     )
 
     flu = db.Column(
-        db.Date,
+        db.String,
         nullable=True
     )
 
     tb = db.Column(
-        db.Date,
+        db.String,
         nullable=True
     )
 
     tetanus = db.Column(
-        db.Date,
+        db.String,
         nullable=True
     )
 
@@ -178,6 +194,8 @@ class MedicalRecord(db.Model):
             'tetanus': self.tetanus
         }
 
+############## USER MODEL ###########################
+
 class User(db.Model):
     """ User model """
 
@@ -189,7 +207,7 @@ class User(db.Model):
     )
 
     password = db.Column(
-        db.String(50),
+        db.Text,
         nullable=False
     )
 
@@ -205,7 +223,8 @@ class User(db.Model):
 
     email = db.Column(
         db.String(50),
-        nullable=False
+        nullable=False,
+        unique=True
     )
 
     phone = db.Column(
@@ -223,7 +242,6 @@ class User(db.Model):
 
         return {
             'username': self.username,
-            'password': self.password,
             'first_name': self.first_name,
             'last_name': self.last_name,
             'email': self.email,
@@ -232,8 +250,11 @@ class User(db.Model):
         }
 
     @classmethod
-    def signup(cls, username, password, first_name, last_name, email, phone, is_guardian):
-        """ Signup user """
+    def signup(cls, username, password, first_name, last_name, email):
+        """ Signup user.
+
+        Hashes password and adds user to system.
+        """
 
         hashed_pwd = bcrypt.generate_password_hash(password).decode('UTF-8')
 
@@ -243,9 +264,7 @@ class User(db.Model):
             password=hashed_pwd,
             first_name=first_name,
             last_name=last_name,
-            email=email,
-            phone=phone,
-            is_guardian=is_guardian
+            email=email
         )
 
         db.session.add(user)
@@ -263,26 +282,23 @@ class User(db.Model):
 
         return False
 
+############## GUARDIAN - CHILD RELATIONS MODEL ###########################
 
 class GuardianChild(db.Model):
     """ GuardianChild model """
 
     __tablename__ = 'guardian_children'
 
-    id = db.Column(
-        db.Integer,
-        primary_key=True,
-        autoincrement=True
-    )
-
     guardian_username = db.Column(
         db.String(50),
-        db.ForeignKey('users.username')
+        db.ForeignKey('users.username', ondelete='CASCADE'),
+        primary_key=True,
     )
 
     child_id = db.Column(
         db.Integer,
-        db.ForeignKey('students.id')
+        db.ForeignKey('students.id', ondelete='CASCADE'),
+        primary_key=True,
     )
 
     child = db.relationship(
