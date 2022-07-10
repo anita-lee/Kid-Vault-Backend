@@ -85,6 +85,23 @@ def signup():
         token = create_access_token(identity=user.username)
         return (jsonify(token=token), 201)
 
+@app.route('/login', methods=["POST"])
+@cross_origin()
+def login():
+    """ Handle user login and return a token """
+
+    user = User.login(
+        username=request.json["username"],
+        password=request.json["password"]
+    )
+
+    if user:
+        token = create_access_token(identity=user.username)
+        return (jsonify(token=token), 200)
+
+    else:
+        return (jsonify({"error": "Invalid Username/Password"}), 400)
+
 
 # import os
 # from flask import Flask, jsonify, redirect, request, session, g
