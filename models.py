@@ -207,7 +207,7 @@ class User(db.Model):
     )
 
     password = db.Column(
-        db.String(60),
+        db.String,
         nullable=False
     )
 
@@ -234,7 +234,6 @@ class User(db.Model):
 
     is_guardian = db.Column(
         db.Boolean,
-        nullable=False
     )
 
     def __repr__(self):
@@ -249,7 +248,7 @@ class User(db.Model):
             'last_name': self.last_name,
             'email': self.email,
             'phone': self.phone,
-            'is_guardian': self.is_guardian
+            'is_guardian': self.is_guardian,
         }
 
     @classmethod
@@ -283,11 +282,8 @@ class User(db.Model):
 
         user = cls.query.filter_by(username=username).first()
 
-        if user and password == user.password:
+        if user and bcrypt.check_password_hash(user.password, password):
             return user
-
-        # if user and bcrypt.check_password_hash(user.password, password):
-        #     return user
 
         return False
 

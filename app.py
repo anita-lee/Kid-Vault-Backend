@@ -248,7 +248,6 @@ def create_user():
         last_name=request.json['last_name'],
         email=request.json['email'],
         phone=request.json['phone'],
-        is_guardian=request.json['is_guardian']
     )
     db.session.add(user)
     db.session.commit()
