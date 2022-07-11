@@ -53,17 +53,6 @@ class Student(db.Model):
 
         return cls.query.filter_by(id=id).first()
 
-    def serialize(self):
-        """ Serialize student """
-
-        return {
-            'id': self.id,
-            'last_name': self.last_name,
-            'first_name': self.first_name,
-            'birth_date': self.birth_date,
-            'classroom': self.classroom,
-            'image_url': self.image_url
-        }
 
     @classmethod
     def add(cls, last_name, first_name, birth_date, classroom, image_url):
@@ -81,6 +70,18 @@ class Student(db.Model):
 
         return student
 
+    def serialize(self):
+        """ Serialize student """
+
+        return {
+            'id': self.id,
+            'last_name': self.last_name,
+            'first_name': self.first_name,
+            'birth_date': self.birth_date,
+            'classroom': self.classroom,
+            'image_url': self.image_url
+        }
+        
 ############## EMERGENCY CONTACT MODEL ###########################
 
 class Contact(db.Model):
