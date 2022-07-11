@@ -44,7 +44,7 @@ class Student(db.Model):
 
     image_url = db.Column(
         db.Text,
-        default=DEFAULT_PROFILE_PIC
+        # default=DEFAULT_PROFILE_PIC
     )
 
     @classmethod
@@ -64,6 +64,22 @@ class Student(db.Model):
             'classroom': self.classroom,
             'image_url': self.image_url
         }
+
+    @classmethod
+    def add(cls, last_name, first_name, birth_date, classroom, image_url):
+        """ Add a student. """
+
+        student = Student(
+            last_name=last_name,
+            first_name=first_name,
+            birth_date=birth_date,
+            classroom=classroom,
+            image_url=image_url or DEFAULT_PROFILE_PIC,
+        )
+
+        db.session.add(student)
+
+        return student
 
 ############## EMERGENCY CONTACT MODEL ###########################
 

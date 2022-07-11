@@ -206,22 +206,6 @@ def get_guardianchildren():
     guardian_children = GuardianChild.query.all()
     return jsonify([guardian_child.serialize() for guardian_child in guardian_children])
 
-@app.post("/students")
-@cross_origin()
-def create_student():
-    """Create a new student."""
-
-    student = Student(
-        last_name=request.json['last_name'],
-        first_name=request.json['first_name'],
-        birth_date=request.json['birth_date'],
-        classroom=request.json['classroom']
-    )
-
-    db.session.add(student)
-    db.session.commit()
-    return jsonify(student.serialize())
-
 @app.post("/guardianchildren")
 @cross_origin()
 def create_guardianchild():
@@ -236,19 +220,46 @@ def create_guardianchild():
     db.session.commit()
     return jsonify(guardian_child.serialize())
 
-@app.post("/users")
-@cross_origin()
-def create_user():
-    """Create a new user."""
+# @app.post("/users")
+# @cross_origin()
+# def create_user():
+#     """Create a new user."""
 
-    user = User(
-        username=request.json['username'],
-        password=request.json['password'],
-        first_name=request.json['first_name'],
-        last_name=request.json['last_name'],
-        email=request.json['email'],
-        phone=request.json['phone'],
-    )
-    db.session.add(user)
-    db.session.commit()
-    return jsonify(user.serialize())
+#     user = User(
+#         username=request.json['username'],
+#         password=request.json['password'],
+#         first_name=request.json['first_name'],
+#         last_name=request.json['last_name'],
+#         email=request.json['email'],
+#         phone=request.json['phone'],
+#     )
+#     db.session.add(user)
+#     db.session.commit()
+#     return jsonify(user.serialize())
+
+# npm
+
+@app.route('/students', methods=["POST"])
+@cross_origin()
+def create_student():
+    """Create a new student."""
+
+    try:
+        student = Student.add(
+            last_name=request.json['last_name'],
+            first_name=request.json['first_name'],
+            birth_date=request.json['birth_date'],
+            classroom=request.json['classroom'],
+            image_url=request.json['image_url']
+        )
+
+        db.session.commit()
+        return (jsonify({"success" : "Student added. "}), 200)
+
+    except IntegrityError:
+        return (jsonify({"error": "Duplicate Student"}), 400)
+
+
+    # if user.username:
+    #     token = create_access_token(identity=user.username)
+    #     return (jsonify(token=token), 201)
