@@ -223,14 +223,14 @@ def get_guardianchildren():
     guardian_children = GuardianChild.query.all()
     return jsonify([guardian_child.serialize() for guardian_child in guardian_children])
 
-@app.get("/guardianchildren/<int:guardian_id>")
+@app.get("/guardianchildren/<guardian_username>")
 @cross_origin()
-def get_guardianchild(guardian_id):
-    """Get guardian children by guardian id."""
+def get_guardianchild(guardian_username):
+    """Get guardian children by guardian ."""
 
-    guardian_child = GuardianChild.query.get(guardian_id)
+    guardian_child = GuardianChild.query.get(guardian_username)
     return jsonify(guardian_child.serialize())
-    
+
 @app.post("/guardianchildren")
 @cross_origin()
 def create_guardianchild():
