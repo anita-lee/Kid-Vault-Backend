@@ -81,7 +81,7 @@ class Student(db.Model):
             'classroom': self.classroom,
             'image_url': self.image_url
         }
-        
+
 ############## EMERGENCY CONTACT MODEL ###########################
 
 class Contact(db.Model):
@@ -124,6 +124,12 @@ class Contact(db.Model):
         primary_key=True,
         autoincrement=True
     )
+
+    @classmethod
+    def get_by_id(cls, student_id):
+        """ Get contacts by id """
+
+        return cls.query.filter_by(student_id=student_id).all()
 
     def serialize(self):
         """ Serialize contact """
@@ -195,6 +201,12 @@ class MedicalRecord(db.Model):
         nullable=True
     )
 
+    @classmethod
+    def get_by_id(cls, student_id):
+        """ Get medical record by id """
+
+        return cls.query.filter_by(student_id=student_id).first()
+
     def serialize(self):
         """Serialize medical record"""
 
@@ -254,21 +266,6 @@ class User(db.Model):
         default=True
     )
 
-    def __repr__(self):
-        return f"<User {self.username}: {self.email}>"
-
-    def serialize(self):
-        """ Serialize user """
-
-        return {
-            'username': self.username,
-            'first_name': self.first_name,
-            'last_name': self.last_name,
-            'email': self.email,
-            'phone': self.phone,
-            'is_guardian': self.is_guardian,
-        }
-
     @classmethod
     def signup(cls, username, password, first_name, last_name, email, phone):
         """ Signup user.
@@ -303,6 +300,21 @@ class User(db.Model):
 
         return False
 
+    def __repr__(self):
+        return f"<User {self.username}: {self.email}>"
+
+    def serialize(self):
+        """ Serialize user """
+
+        return {
+            'username': self.username,
+            'first_name': self.first_name,
+            'last_name': self.last_name,
+            'email': self.email,
+            'phone': self.phone,
+            'is_guardian': self.is_guardian,
+        }
+
 ############## GUARDIAN - CHILD RELATIONS MODEL ###########################
 
 class GuardianChild(db.Model):
@@ -332,6 +344,12 @@ class GuardianChild(db.Model):
         backref=db.backref('guardian_children', lazy=True)
     )
 
+    @classmethod
+    def get_by_guardian(cls, username):
+        """ Get children by guardian """
+
+        return cls.query.filter_by(guardian_username=username).all()
+
     def serialize(self):
         """ Serialize guardian child """
 
@@ -339,6 +357,8 @@ class GuardianChild(db.Model):
             'guardian_username': self.guardian_username,
             'child_id': self.child_id
         }
+
+
 
 def connect_db(app):
     """Connect this database to provided Flask app.

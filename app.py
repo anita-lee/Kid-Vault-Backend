@@ -174,6 +174,7 @@ def get_student(id):
     student = Student.query.get(id)
     return jsonify(student.serialize())
 
+
 @app.get("/contacts")
 @cross_origin()
 def get_contacts():
@@ -182,6 +183,14 @@ def get_contacts():
     contacts = Contact.query.all()
     return jsonify([contact.serialize() for contact in contacts])
 
+@app.get("/contacts/<int:student_id>")
+@cross_origin()
+def get_contact(student_id):
+    """Get contacts by student id."""
+
+    contact = Contact.query.get(student_id)
+    return jsonify(contact.serialize())
+
 @app.get("/medicalrecords")
 @cross_origin()
 def get_medicalrecords():
@@ -189,6 +198,14 @@ def get_medicalrecords():
 
     medical_records = MedicalRecord.query.all()
     return jsonify([medical_record.serialize() for medical_record in medical_records])
+
+@app.get("/medicalrecords/<int:student_id>")
+@cross_origin()
+def get_medicalrecord(student_id):
+    """Get medical records by student id."""
+
+    medical_record = MedicalRecord.query.get(student_id)
+    return jsonify(medical_record.serialize())
 
 @app.get("/users")
 @cross_origin()
@@ -206,6 +223,14 @@ def get_guardianchildren():
     guardian_children = GuardianChild.query.all()
     return jsonify([guardian_child.serialize() for guardian_child in guardian_children])
 
+@app.get("/guardianchildren/<int:guardian_id>")
+@cross_origin()
+def get_guardianchild(guardian_id):
+    """Get guardian children by guardian id."""
+
+    guardian_child = GuardianChild.query.get(guardian_id)
+    return jsonify(guardian_child.serialize())
+    
 @app.post("/guardianchildren")
 @cross_origin()
 def create_guardianchild():
@@ -259,7 +284,39 @@ def create_student():
     except IntegrityError:
         return (jsonify({"error": "Duplicate Student"}), 400)
 
+@app.route('/students/<int:id>', methods=["DELETE"])
+@cross_origin()
+def delete_student(id):
+    """Delete a student."""
 
-    # if user.username:
-    #     token = create_access_token(identity=user.username)
-    #     return (jsonify(token=token), 201)
+    student = Student.query.get(id)
+    db.session.delete(student)
+    db.session.commit()
+
+    return (jsonify({"success" : "Student deleted."}), 200)
+
+
+@app.route('/users/<username>', methods=['PATCH'])
+@cross_origin()
+# @jwt_required()
+def update_user(username):
+    """Update a user."""
+
+    # curr_user = get_jwt_identity()
+
+    # if curr_user == username:
+
+    user = User.query.filter_by(username=username).first()
+
+    if user:
+        # user = User.query.get_or_404(username)
+        user.first_name = request.json['first_name'] or user.first_name,
+        user.last_name = request.json['last_name'] or user.last_name,
+        user.email = request.json['email'] or user.email,
+        user.phone = request.json['phone'] or user.phone,
+
+        db.session.commit()
+        return (jsonify({"success": "user updated!"}), 200)
+
+    else:
+        return (jsonify({"error": "Unauthorized."}), 401)
