@@ -273,8 +273,9 @@ def get_guardianchildren():
 def get_guardianchild(guardian_username):
     """Get guardian children by guardian ."""
 
-    guardian_child = GuardianChild.query.get(guardian_username)
-    return jsonify(guardian_child.serialize())
+    guardian_children = GuardianChild.get_by_guardian(guardian_username)
+    print("****************guardian_children: ", guardian_children)
+    return jsonify([guardian_child.serialize() for guardian_child in guardian_children])
 
 
 @app.post("/guardianchildren")

@@ -7,7 +7,7 @@ bcrypt = Bcrypt()
 # jwt = JWTManager()
 # db = SQLAlchemy()
 
-DEFAULT_PROFILE_PIC = "https://images.unsplash.com/photo-1504376379689-8d54347b26c6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2036&q=80"
+DEFAULT_PROFILE_PIC = "missing_profile_pic.jpg"
 
 ############## STUDENT MODEL ###########################
 
@@ -344,11 +344,14 @@ class GuardianChild(db.Model):
         backref=db.backref('guardian_children', lazy=True)
     )
 
+    def __repr__(self):
+        return f"<Guardian {self.guardian_username}: {self.child_id}>"
+
     @classmethod
-    def get_by_guardian(cls, username):
+    def get_by_guardian(cls, guardian_username):
         """ Get children by guardian """
 
-        return cls.query.filter_by(guardian_username=username).all()
+        return cls.query.filter_by(guardian_username=guardian_username).all()
 
     def serialize(self):
         """ Serialize guardian child """
@@ -357,8 +360,6 @@ class GuardianChild(db.Model):
             'guardian_username': self.guardian_username,
             'child_id': self.child_id
         }
-
-
 
 def connect_db(app):
     """Connect this database to provided Flask app.
