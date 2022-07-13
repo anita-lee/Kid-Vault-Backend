@@ -7,7 +7,7 @@ bcrypt = Bcrypt()
 # jwt = JWTManager()
 # db = SQLAlchemy()
 
-DEFAULT_PROFILE_PIC = "missing_profile_pic.jpg"
+DEFAULT_PROFILE_PIC = "/missing_profile_pic.jpg"
 
 ############## STUDENT MODEL ###########################
 
