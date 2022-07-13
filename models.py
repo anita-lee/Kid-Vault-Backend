@@ -7,7 +7,7 @@ bcrypt = Bcrypt()
 # jwt = JWTManager()
 # db = SQLAlchemy()
 
-DEFAULT_PROFILE_PIC = "https://images.unsplash.com/photo-1609741199466-a20dec135831?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3027&q=80"
+DEFAULT_PROFILE_PIC = "https://images.unsplash.com/photo-1621077699196-15b4693707d7?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=987&q=80"
 
 ############## STUDENT MODEL ###########################
 
