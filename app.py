@@ -37,11 +37,11 @@ connect_db(app)
 # ##############################################################################
 # # CSRF Protection:
 
-@app.before_request
-def add_csrf_only_form():
-    """Add a CSRF-only form so that every route can use it"""
+# @app.before_request
+# def add_csrf_only_form():
+#     """Add a CSRF-only form so that every route can use it"""
 
-    g.csrf_form = CSRFProtection()
+#     g.csrf_form = CSRFProtection()
 
 
 ##############################################################################

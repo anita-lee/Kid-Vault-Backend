@@ -1,5 +1,5 @@
-from flask_wtf import FlaskForm
+# from flask_wtf import FlaskForm
 
 
-class CSRFProtection(FlaskForm):
-    """CSRFProtection form, intentionally left blank"""
+# class CSRFProtection(FlaskForm):
+#     """CSRFProtection form, intentionally left blank"""
