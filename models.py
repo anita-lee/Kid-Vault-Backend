@@ -1,3 +1,4 @@
+from sqlalchemy import null
 from database import db
 from flask_bcrypt import Bcrypt
 # from flask_sqlalchemy import SQLAlchemy
@@ -124,6 +125,12 @@ class Contact(db.Model):
         primary_key=True,
         autoincrement=True
     )
+
+    is_primary = db.Column(
+        db.Boolean,
+        default=True
+    )
+
 
     @classmethod
     def get_by_id(cls, student_id):
