@@ -1,4 +1,4 @@
-student_id,name,email,phone,other,relation,id,is_primary
+student_id,name,email,phone,other,relation,is_primary,id
 1,Sam Smith,s@smith.com,222-444-5324,242-452-4242,Father,True
 1,Toni Smith,t@smith.com,222-444-3425,242-452-1314,Mother,False
 1,Sally Sharons,s@sharons.com,222-444-4521,null,Aunt,False

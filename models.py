@@ -120,17 +120,15 @@ class Contact(db.Model):
         nullable=True
     )
 
+    is_primary = db.Column(
+        db.String(50)
+    )
+
     id = db.Column(
         db.Integer,
         primary_key=True,
         autoincrement=True
     )
-
-    is_primary = db.Column(
-        db.Boolean,
-        default=True
-    )
-
 
     @classmethod
     def get_by_id(cls, student_id):
