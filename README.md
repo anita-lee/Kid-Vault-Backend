@@ -1,20 +1,29 @@
-# Mom_API - Reducing paperwork for busy moms.
+# Welcome to Kid Vault
 
-## Description
+## ABOUT
 
-Mom_API leverages the power of [GraphQL](https://graphql.org/) with [StepZen](https://stepzen.com/) to generate custom queries to complete school forms. This MVP focuses on the **Blue Card (emergency contact information)** which needs to be duplicated each time a child attends a camp, after-school program, or school. Organizations each have their own record-keeping system.  Our solution empowers the parent -
-A: Choose QR code with their child's information from their main school org to share with local organizations.
-B: Host their child's information on blockchain so they are in full control.
+This **Flask API** serves as the back-end layer for the **Kid Vault** app, which was built as part of the [StepZen](https://stepzen.com/) [GraphQL](https://graphql.org/) Challenge 2022.
 
-Since these organizations don't share data, we give the parent the power to enter their children's information once, which can then be queried via a Metamask-type front-end browser
-extension to autopopulate school forms via [ML text recognition](https://developers.google.com/ml-kit/vision/text-recognition/).
+The React frontend and **StepZen GraphQL API** code repositories can be viewed here:
 
-We hope in the future that schools can access these parent's database via an API authorization token, thereby
-reducing duplicate paperwork for busy parents.
+- [React Frontend](https://github.com/melawong/mom-api-frontend)
+- [StepZen GraphQL API](https://github.com/anita-lee/test_stepzen)
 
-## DEMO
+The deployed version of this Flask backend with a mock Postgres database is viewable here:
 
-## Getting Started
+- [Heroku Backend with Postgres data](https://test-mom-api.herokuapp.com/)
+
+`NOTE:` _Heroku often takes some time to wake up! Don't forget to give it a minute._
+
+The deployed version of our app is viewable here:
+
+- [Kid Vault](https://kidvault.surge.sh/)
+
+---
+
+## INSTALLATION
+
+To install this repository on your computer, please follow these instructions:
 
 ### Installing Dependencies
 
@@ -28,24 +37,29 @@ source venv/bin/activate
 pip3 install -r requirements.txt
 ```
 
-### Running the app
+### Running this Backend
 
-Create .env file with:
+1. Create .env file with:
+
 ```
-DATABASE_URL=postgresql:///mom_api
+DATABASE_URL=postgresql:///mom_api2
+SECRET_KEY=[YOUR_SECRET_KEY_HERE]
 ```
 
-Create the database:
+2. Create the database:
+
 ```
 $ psql
-# CREATE DATABASE mom_api;
+# CREATE DATABASE mom_api2;
 ```
-Fix the database: (Data was entered explicitly using .csv files, need to set max student_id value)
+
+3. Fix the database: (Data was entered explicitly using .csv files, need to set max student_id value)
+
 ```
 # SELECT setval('students_id_seq', (SELECT MAX(id) from "students"));
 ```
 
-To run the app, first run the `seed.py` file directly to create the database tables:
+4. Run `seed.py` file in the project root directory to create the database tables:
 
 ```
 $ python3 seed.py
@@ -53,22 +67,16 @@ $ python3 seed.py
 
 You only need to do this once, unless you change your model definitions.
 
-NOT SET UP YET>>>> Then run the app itself:
+5. Run the app itself:
 
 ```
-$ flask run -p 5001
+$ flask run -p 5002
 ```
 
-Visit [http://localhost:5001/](http://localhost:5001/) in your browser to see the results.
-`
-## Future
-1. Testing
-2. Expanding the type of information stored in the mom_api database
-3. Integrate ML text recognition for easy auto-population
-4. Create QR code abilities so schools can easily download the information from the parent.  Similar to scanning in a child.
-5. Create HIPAA compliant way for medical organizations to upload child's vaccination records/medical history.
+Visit [http://localhost:5002/](http://localhost:5002/) in your browser to see the results.
 
-## Acknowledgments
+---
 
-Inspiration, code snippets, etc.
+## WOOHOO!
 
+You Made It! Enjoy and please contact @melawong and @anita-lee with any issues or questions.
