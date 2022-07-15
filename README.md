@@ -2,7 +2,7 @@
 
 ## ABOUT
 
-This **Flask API** serves as the back-end layer for the **Kid Vault** app, which was built as part of the [StepZen](https://stepzen.com/) [GraphQL](https://graphql.org/) Challenge 2022.
+This **Flask API** serves as the back-end for the **Kid Vault** app, which was built as part of the [StepZen](https://stepzen.com/) [GraphQL](https://graphql.org/) Challenge 2022.
 
 The React frontend and **StepZen GraphQL API** code repositories can be viewed here:
 
