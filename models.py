@@ -267,7 +267,7 @@ class User(db.Model):
     )
 
     is_guardian = db.Column(
-        db.Boolean,
+        db.String(5),
         default=True
     )
 

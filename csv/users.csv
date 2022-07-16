@@ -1,1 +1,3 @@
-guardian_username,password,first_name,last_name,email,phone,is_guardian
+username,password,first_name,last_name,email,phone,is_guardian
+Mom,password,Laura,Andooli,l@andooli.com,3425435,True
+school,school,school,school,school@school.com,3425435,False
