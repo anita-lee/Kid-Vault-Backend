@@ -4,14 +4,14 @@
 
 This **Flask API** serves as the back-end for the **Kid Vault** app, which was built as part of the [StepZen](https://stepzen.com/) [GraphQL](https://graphql.org/) Challenge 2022.
 
-The React frontend and **StepZen GraphQL API** code repositories can be viewed here:
+The React front-end and **StepZen GraphQL API** code repositories can be viewed here:
 
-- [React Frontend](https://github.com/melawong/mom-api-frontend)
+- [React Front-end](https://github.com/melawong/mom-api-frontend)
 - [StepZen GraphQL API](https://github.com/anita-lee/test_stepzen)
 
-The deployed version of this Flask backend with a mock Postgres database is viewable here:
+The deployed version of this Flask back-end with a mock Postgres database is viewable here:
 
-- [Heroku Backend with Postgres data](https://test-mom-api.herokuapp.com/)
+- [Heroku Back-end with Postgres data](https://test-mom-api.herokuapp.com/)
 
 `NOTE:` _Heroku often takes some time to wake up! Don't forget to give it a minute._
 
@@ -37,7 +37,7 @@ source venv/bin/activate
 pip3 install -r requirements.txt
 ```
 
-### Running this Backend
+### Running this Back-end
 
 1. Create .env file with:
 
