@@ -53,19 +53,21 @@ $ psql
 # CREATE DATABASE mom_api2;
 ```
 
-3. Fix the database: (Data was entered explicitly using .csv files, need to set max student_id value)
-
-```
-# SELECT setval('students_id_seq', (SELECT MAX(id) from "students"));
-```
-
-4. Run `seed.py` file in the project root directory to create the database tables:
+5. Run `seed.py` file in the project root directory to create the database tables:
 
 ```
 $ python3 seed.py
 ```
 
 You only need to do this once, unless you change your model definitions.
+
+4. Fix the database: (Data was entered explicitly using .csv files, need to set max student_id value)
+
+```
+# psql
+# \c mom_api2;
+# SELECT setval('students_id_seq', (SELECT MAX(id) from "students"));
+```
 
 5. Run the app itself:
 
