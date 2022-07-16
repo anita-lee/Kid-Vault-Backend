@@ -229,7 +229,6 @@ def get_contact(student_id):
     """Get contacts by student id."""
 
     contacts = Contact.get_by_id(student_id)
-    print("****************contact: ", contacts)
     return jsonify([contact.serialize() for contact in contacts])
 
 
@@ -274,7 +273,6 @@ def get_guardianchild(guardian_username):
     """Get guardian children by guardian ."""
 
     guardian_children = GuardianChild.get_by_guardian(guardian_username)
-    print("****************guardian_children: ", guardian_children)
     return jsonify([guardian_child.serialize() for guardian_child in guardian_children])
 
 

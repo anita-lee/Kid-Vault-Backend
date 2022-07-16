@@ -1,12 +1,7 @@
-from sqlalchemy import null
 from database import db
 from flask_bcrypt import Bcrypt
-# from flask_sqlalchemy import SQLAlchemy
-# from flask_jwt_extended import jwt_required, JWTManager
 
 bcrypt = Bcrypt()
-# jwt = JWTManager()
-# db = SQLAlchemy()
 
 DEFAULT_PROFILE_PIC = "https://images.unsplash.com/photo-1621077699196-15b4693707d7?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=987&q=80"
 
@@ -45,7 +40,6 @@ class Student(db.Model):
 
     image_url = db.Column(
         db.Text,
-        # default=DEFAULT_PROFILE_PIC
     )
 
     @classmethod
