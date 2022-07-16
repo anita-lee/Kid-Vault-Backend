@@ -6,7 +6,7 @@ This **Flask API** serves as the back-end for the **Kid Vault** app, which was b
 
 The React front-end and **StepZen GraphQL API** code repositories can be viewed here:
 
-- [React Front-end](https://github.com/melawong/mom-api-frontend)
+- [React Front-end](https://github.com/melawong/Kid-Vault-Frontend)
 - [StepZen GraphQL API](https://github.com/anita-lee/test_stepzen)
 
 The deployed version of this Flask back-end with a mock Postgres database is viewable here:
