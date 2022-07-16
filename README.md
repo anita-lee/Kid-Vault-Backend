@@ -1,4 +1,4 @@
-# Welcome to Kid Vault
+# Welcome to Kid Vault Back-End
 
 ## ABOUT
 
@@ -61,7 +61,7 @@ $ python3 seed.py
 
 You only need to do this once, unless you change your model definitions.
 
-4. Fix the database: (Data was entered explicitly using .csv files, need to set max student_id value)
+4. Fix the database (Data was entered explicitly using .csv files, so we need to set max student_id value):
 
 ```
 # psql
