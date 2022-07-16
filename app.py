@@ -194,7 +194,7 @@ def create_student():
         )
 
         db.session.commit()
-        return (jsonify({"success" : "Student added. "}), 200)
+        return (jsonify(student.serialize()), 201)
 
     except IntegrityError:
         return (jsonify({"error": "Duplicate Student"}), 400)
